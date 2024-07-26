@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Sporttiporssi.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Sporttiporssi.Views" FlyoutBehavior="Flyout" 
+    FlyoutWidth="150" FlyoutHeight="300" FlyoutBackgroundColor="LightGray"
+    >
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.TabBarBackgroundColor" Value="LightGray" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="Black" />
+                <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Black"/>
+                <Setter Property="Shell.BackgroundColor" Value="LightGray"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <!-- Flyout Menu Header -->
+    <Shell.FlyoutHeader>
+        <StackLayout Padding="10">
+            <Label Text="Liiga" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <!-- Flyout Menu Content -->
+    <Shell.FlyoutContent>
+        <ContentPage Title="Menu">
+            <StackLayout Padding="10">
+                <Button Text="Home" />
+                <Button Text="League"/>
+                <Button Text="My Team"/>
+            </StackLayout>
+        </ContentPage>
+    </Shell.FlyoutContent>
+
+    <Shell.ToolbarItems>
+        <ToolbarItem Order="Primary" Priority="0" Text="Logout" Clicked="Logout_Clicked"></ToolbarItem>
+    </Shell.ToolbarItems>
+    
+    <TabBar>
+        <Tab Title="Home" Route="main">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        </Tab>
+        <Tab Title="League" Route="league">
+            <ShellContent ContentTemplate="{DataTemplate local:LeaguePage}"/>
+        </Tab>
+        <Tab Title="My Team" Route="myteam">
+            <ShellContent ContentTemplate="{DataTemplate local:MyTeamPage}"/>
+        </Tab>
+    </TabBar>
+
+</Shell>

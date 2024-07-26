@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Sporttiporssi.Helpers.Converters"
+             x:Class="Sporttiporssi.Views.RegisterPage"
+             Title="RegisterPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:StringNotEmptyConverter x:Key="StringNotEmptyConverter"></local:StringNotEmptyConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="30">
+
+        <!-- Email Entry -->
+        <Entry Text="{Binding Email}"
+           Placeholder="Email"
+           Keyboard="Email"
+           Margin="0,10" />
+        <!-- Password Entry -->
+        <Entry Text="{Binding Password}"
+           Placeholder="Password"
+           IsPassword="True"
+           Margin="0,10" />
+        <!-- Confirm password -->
+        <Entry Text="{Binding ConfirmPassword}"
+            Placeholder="Confirm Password"
+            IsPassword="True"
+            Margin="0,10" />
+        <!-- InvalidEmailMessage -->
+        <Label Text="{Binding InvalidEmailMessage}"
+               TextColor="Red"
+               IsVisible="{Binding InvalidEmailMessage, Converter={StaticResource StringNotEmptyConverter}}"
+               Margin="0,10">
+        </Label>
+        <!-- InvalidPasswordMessage -->
+        <Label Text="{Binding InvalidPasswordMessage}"
+               TextColor="Red"
+               IsVisible="{Binding InvalidPasswordMessage, Converter={StaticResource StringNotEmptyConverter}}"
+               Margin="0,10">
+        </Label>
+            <!-- Register Button -->
+        <Button Text="Register"
+            Command="{Binding RegisterCommand}"    
+            Margin="0,10"/>
+        <!-- Login Button -->
+        <Button Text="Login"
+            Command="{Binding LoginNavigateCommand}"
+            Margin="0,10"
+            BackgroundColor="Transparent"
+            TextColor="Blue" />
+
+    </StackLayout>
+</ContentPage>

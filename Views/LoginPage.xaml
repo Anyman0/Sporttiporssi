@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sporttiporssi.Views.LoginPage"
+             Title="LoginPage">
+    <StackLayout Padding="30">
+
+        <!-- Email Entry -->
+        <Entry Text="{Binding Email}"
+               Placeholder="Email"
+               Keyboard="Email"
+               Margin="0,10" />
+        <!-- Password Entry -->
+        <Entry Text="{Binding Password}"
+               Placeholder="Password"
+               IsPassword="True"
+               Margin="0,10" />
+       
+        <!-- Login Button -->
+        <Button Text="Login"
+                Command="{Binding LoginCommand}"
+                Margin="0,10" />
+
+        <!-- Register Button -->
+        <Button Text="Register"
+                Command="{Binding RegisterNavigateCommand}"
+                Margin="0,10"
+                BackgroundColor="Transparent"
+                TextColor="Blue" />
+
+    </StackLayout>
+</ContentPage>

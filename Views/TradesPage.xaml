@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sporttiporssi.Views.TradesPage"
+             Title="TradesPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="teamlogos_liiga.jpg" Aspect="AspectFill" Opacity="0.3" Grid.RowSpan="3"></Image>
+        <Label Text="Kusipaskat" FontSize="24" FontAttributes="Bold" Margin="10" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0"></Label>
+        <StackLayout Padding="10" Grid.Row="1">
+            <!-- Top row -->
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="-6,0,0,5">
+                <!-- Top left item -->
+                <StackLayout Orientation="Vertical">
+                    <Frame BackgroundColor="AntiqueWhite"  Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
+                        <StackLayout>
+                            <Label Text="Hyökkääjä" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
+                            <Label Text="Ben Player" HorizontalOptions="Center" />
+                            <Label Text="25 FTP" HorizontalOptions="Center" />
+                            <Label Text="320 000€" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Button Text="Sell" WidthRequest="120" HeightRequest="40" Margin="0,5,0,5" BackgroundColor="Chartreuse" TextColor="Black" FontAttributes="Bold"/>
+                </StackLayout>
+                <!-- Top middle item -->
+                <StackLayout Orientation="Vertical">
+                    <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
+                        <StackLayout>
+                            <Label Text="Hyökkääjä" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
+                            <Label Text="Ben Player" HorizontalOptions="Center" />
+                            <Label Text="25 FTP" HorizontalOptions="Center" />
+                            <Label Text="320 000€" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Button Text="Sell" WidthRequest="120" HeightRequest="40" Margin="0,5,0,5" BackgroundColor="Chartreuse" TextColor="Black" FontAttributes="Bold"/>
+                </StackLayout>
+                <!-- Top right item -->
+                <StackLayout Orientation="Vertical">
+                    <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
+                        <StackLayout>
+                            <Label Text="Hyökkääjä" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
+                            <Label Text="Ben Player" HorizontalOptions="Center" />
+                            <Label Text="25 FTP" HorizontalOptions="Center" />
+                            <Label Text="320 000€" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Button Text="Sell" WidthRequest="120" HeightRequest="40" Margin="0,5,0,5" BackgroundColor="Chartreuse" TextColor="Black" FontAttributes="Bold"/>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Bottom row -->
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="-6,0,0,5">
+                <!-- Bottom left item -->
+                <StackLayout Orientation="Vertical">
+                    <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
+                        <StackLayout>
+                            <Label Text="Puolustaja" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
+                            <Label Text="Ben Player" HorizontalOptions="Center" />
+                            <Label Text="25 FTP" HorizontalOptions="Center" />
+                            <Label Text="320 000€" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Button Text="Sell" WidthRequest="120" HeightRequest="40" Margin="0,5,0,5" BackgroundColor="Chartreuse" TextColor="Black" FontAttributes="Bold"/>
+                </StackLayout>
+                <!-- Bottom middle item -->
+                <StackLayout Orientation="Vertical">
+                    <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
+                        <StackLayout>
+                            <Label Text="Maalivahti" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
+                            <Label Text="Ben Player" HorizontalOptions="Center" />
+                            <Label Text="25 FTP" HorizontalOptions="Center" />
+                            <Label Text="320 000€" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Button Text="Sell" WidthRequest="120" HeightRequest="40" Margin="0,5,0,5" BackgroundColor="Chartreuse" TextColor="Black" FontAttributes="Bold"/>
+                </StackLayout>
+                <!-- Bottom right item -->
+                <StackLayout Orientation="Vertical">
+                    <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
+                        <StackLayout>
+                            <Label Text="Puolustaja" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
+                            <Label Text="Ben Player" HorizontalOptions="Center" />
+                            <Label Text="25 FTP" HorizontalOptions="Center" />
+                            <Label Text="320 000€" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Button Text="Sell" WidthRequest="120" HeightRequest="40" Margin="0,5,0,5" BackgroundColor="Chartreuse" TextColor="Black" FontAttributes="Bold"/>
+                </StackLayout>
+            </StackLayout>
+            <Button Text="Complete trades" BackgroundColor="ForestGreen" Clicked="CompleteButton_Clicked"></Button>
+        </StackLayout>
+    </Grid>
+</ContentPage>
