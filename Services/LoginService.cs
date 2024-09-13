@@ -5,8 +5,10 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Net.WebSockets;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Newtonsoft.Json;
 using Sporttiporssi.Configurations;
 
@@ -20,7 +22,9 @@ namespace Sporttiporssi.Services
         public LoginService(LocalDatabaseService databaseService, HttpClient httpClient)
         {
             this._databaseService = databaseService;
-            _httpClient = httpClient;
+            var unsafeHttpClient = new UnsafeHttpClientHandler();
+            _httpClient = new HttpClient(unsafeHttpClient);
+            //_httpClient = httpClient;
         }
 
         public async Task<HttpStatusCode> RegisterUserAsync(string email, string password)
@@ -59,6 +63,7 @@ namespace Sporttiporssi.Services
                 var token = result.Token;
                 // Save token to securestorage
                 await SecureStorage.SetAsync("auth_token", token);
+                Preferences.Set("currentuser", email);
                 return true;
             }
             else

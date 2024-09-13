@@ -25,5 +25,24 @@ namespace Sporttiporssi
                 }
             }          
         }
+
+        private void ChooseSerie_Tapped(object sender, TappedEventArgs e)
+        {
+            if(sender is Label label)
+            {
+                App.CurrentSerie = label.Text;
+                Preferences.Set("currentserie", App.CurrentSerie);
+                Preferences.Set("chosen_team", string.Empty);
+
+                ResetLabelStyles();
+                label.BackgroundColor = Colors.OrangeRed;
+            }
+        }
+
+        private void ResetLabelStyles()
+        {
+            LiigaLabel.BackgroundColor = Colors.Transparent;
+            NHLLabel.BackgroundColor = Colors.Transparent;
+        }
     }
 }

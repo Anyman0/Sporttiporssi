@@ -22,92 +22,93 @@ namespace Sporttiporssi.Services
         public LeagueStandingsService(LocalDatabaseService databaseService, HttpClient httpClient)
         {
             _databaseService = databaseService;
-            _httpClient = httpClient;
+            //_httpClient = httpClient;
+            var unsafeHttpClient = new UnsafeHttpClientHandler();
+            _httpClient = new HttpClient(unsafeHttpClient);
         }
-
-        public async Task<List<LeagueStanding>> GetStandingsAsync()
-        {
-            bool needToUpdate = false;
-            try
-            {
-                var localStandings = await _databaseService.GetAllStandingsAsync();
-                if(LeagueStandings.Count > 0)
-                {
-                    // Update seasonstandings every 3 hour
-                    needToUpdate = localStandings.Any(s => s.LastUpdated < DateTime.UtcNow.AddHours(-3));
-                }
-                else
-                {
-                    needToUpdate = true;
-                }
-                if(localStandings.Count == 0 || needToUpdate)
-                {
-                    await LoadStandingsAsync();
-                    if(LeagueStandings != null)
-                    {
-                        foreach (var standing in LeagueStandings)
-                        {
-                            var existingStanding = await _databaseService.GetStandingAsync(standing.TeamId);
-                            if (existingStanding != null)
-                            {
-                                standing.LastUpdated = DateTime.UtcNow;
-                                await _databaseService.UpdateStandingAsync(standing);
-                            }
-                            else
-                            {
-                                standing.LastUpdated = DateTime.UtcNow;
-                                await _databaseService.SaveSeasonAsync(standing);
-                            }
-                        }
-                        return LeagueStandings.ToList();
-                    }
-                }
-                return localStandings.ToList();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error fetching players: {ex.Message}");
-                return new List<LeagueStanding>();
-            }
-        }
-
-        private async Task LoadStandingsAsync()
+        public async Task<ObservableCollection<LeagueStanding>> GetLeagueStandings()
         {
             _httpClient.DefaultRequestHeaders.Clear();
             string authToken = await SecureStorage.GetAsync("auth_token");
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+            var league = Preferences.Get("currentserie", string.Empty);
             try
-            {               
-                var response = await _httpClient.GetAsync($"{ApiConfig.ApiBaseAddress}liigastanding");
+            {
+                var response = await _httpClient.GetAsync($"{ApiConfig.ApiBaseAddress}liigastanding?league={league}");
                 response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
                 var standings = JsonConvert.DeserializeObject<List<LeagueStanding>>(json);
                 LeagueStandings.Clear();
                 foreach (var team in standings)
                 {
+                    if (team.TeamName == "Kaerpaet" || team.TeamName == "Aessaet" || team.TeamName == "Kiekko-Espoo")
+                    {
+                        team.TeamName = TeamNameConverter(team.TeamName);
+                    }
                     var standing = new LeagueStanding
                     {
-                        TeamId = team.TeamId,
+                        Rank = team.Rank,                       
                         TeamName = team.TeamName,
-                        Ranking = team.Ranking,
-                        Games = team.Games,
-                        Wins = team.Wins,
-                        Ties = team.Ties,
-                        Losses = team.Losses,
-                        Goals = team.Goals,
-                        GoalsAgainst = team.GoalsAgainst,
-                        GoalDifference = team.Goals - team.GoalsAgainst,
                         Points = team.Points,
-                        PointsPerGame = team.PointsPerGame,
+                        Played = team.Played,
+                        Wins = team.Wins,
+                        Losses = team.Losses,
+                        GoalsFor = team.GoalsFor,
+                        GoalsAgainst = team.GoalsAgainst,
+                        GoalDifference = team.GoalDifference,                        
                         LastUpdated = team.LastUpdated,
                     };
                     LeagueStandings.Add(standing);
                 }
+                return LeagueStandings;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error fetching players: {ex.Message}");
+                return null;
+            }
+        }
+
+        private string TeamNameConverter(string teamName)
+        {
+            if (teamName == "Aessaet") return "Ässät";
+            if (teamName == "Kaerpaet") return "Kärpät";
+            if (teamName == "Kiekko-Espoo") return "K-Espoo";
+            return "";
+        }
+
+        private string TeamNameReverseConverter(string teamName)
+        {
+            if (teamName == "Ässät") return "Aessaet";
+            if (teamName == "Kärpät") return "Kaerpaet";
+            if (teamName == "K-Espoo") return "Kiekko-Espoo";
+            return "";
+        }
+
+        public async Task<int> GetRankingByTeam(string teamName)
+        {
+            _httpClient.DefaultRequestHeaders.Clear();
+            string authToken = await SecureStorage.GetAsync("auth_token");
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+            var league = Preferences.Get("currentserie", string.Empty);
+            if (teamName == "Kärpät" || teamName == "Ässät" || teamName == "K-Espoo")
+            {
+                teamName = TeamNameReverseConverter(teamName);
+            }
+            try
+            {
+                var response = await _httpClient.GetAsync($"{ApiConfig.ApiBaseAddress}liigastanding/GetTeamRank?teamName={teamName}&league={league}");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var rank = JsonConvert.DeserializeObject<int>(json);
+                return rank;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error fetching players: {ex.Message}");
+                return 0;
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,21 +9,37 @@ using System.Threading.Tasks;
 namespace Sporttiporssi.Models
 {
     public class LeagueStanding
-    {
-        [PrimaryKey]
-        public string? TeamId { get; set; }
-        public string? TeamName { get; set; }
-        public int? Ranking { get; set; }
-        public int Games { get; set; }
-        public int Wins { get; set; }
-        public int Ties { get; set; }
-        public int Losses { get; set; }
-        public int Goals { get; set; }
-        public int GoalsAgainst { get; set; }
-        public int GoalDifference { get; set; }
-        public int? Points { get; set; }
-        public double? PointsPerGame { get; set; }
-        public DateTime LastUpdated { get; set; }
+    {        
+        public Guid Id { get; set; } // Primary Key, can be auto-generated
+        public Guid SerieId { get; set; }
 
+        [JsonProperty("Rank")]
+        public int Rank { get; set; } // Ranking of the team
+
+        [JsonProperty("Played")]
+        public int Played { get; set; } // Total games played
+
+        [JsonProperty("TeamName")]
+        public string TeamName { get; set; } // Name of the team
+
+        [JsonProperty("Points")]
+        public int Points { get; set; } // Points the team has
+
+        [JsonProperty("Wins")]
+        public int Wins { get; set; } // Number of wins
+
+        [JsonProperty("Losses")]
+        public int Losses { get; set; } // Number of losses
+
+        [JsonProperty("GoalsFor")]
+        public int GoalsFor { get; set; } // Goals scored by the team
+
+        [JsonProperty("GoalsAgainst")]
+        public int GoalsAgainst { get; set; } // Goals conceded by the team
+
+        [JsonProperty("GoalDifference")]
+        public int GoalDifference { get; set; } // Difference between GoalsFor and GoalsAgainst
+
+        public DateTime LastUpdated { get; set; }
     }
 }

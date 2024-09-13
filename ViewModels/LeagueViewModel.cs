@@ -16,9 +16,9 @@ namespace Sporttiporssi.ViewModels
     {
         
         private readonly LeagueStandingsService _leagueStandingsService;
-        private List<LeagueStanding> _standings;
+        private ObservableCollection<LeagueStanding> _standings;
 
-        public List<LeagueStanding> LeagueStandings
+        public ObservableCollection<LeagueStanding> LeagueStandings
         {
             get => _standings;
             set
@@ -36,10 +36,10 @@ namespace Sporttiporssi.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+   
         public async void LoadStandings()
         {
-            LeagueStandings = await _leagueStandingsService.GetStandingsAsync();
+            LeagueStandings = await _leagueStandingsService.GetLeagueStandings();
         }
              
     }

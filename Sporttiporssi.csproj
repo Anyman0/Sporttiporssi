@@ -57,9 +57,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\assat250x150.png" />
 	  <None Remove="Resources\Images\coach.png" />
+	  <None Remove="Resources\Images\hifk250x150.png" />
 	  <None Remove="Resources\Images\hockey.png" />
+	  <None Remove="Resources\Images\hpk250x150.png" />
+	  <None Remove="Resources\Images\ilves250x150.png" />
+	  <None Remove="Resources\Images\jukurit250x150.png" />
+	  <None Remove="Resources\Images\jyp250x150.png" />
+	  <None Remove="Resources\Images\kalpa250x150.png" />
+	  <None Remove="Resources\Images\karpat250x150.png" />
+	  <None Remove="Resources\Images\kespoo.webp" />
+	  <None Remove="Resources\Images\kookoo250x150.png" />
 	  <None Remove="Resources\Images\liigalogo.jpg" />
+	  <None Remove="Resources\Images\lukko250x150.png" />
+	  <None Remove="Resources\Images\pelicans250x150.png" />
+	  <None Remove="Resources\Images\ritchie.jpg" />
+	  <None Remove="Resources\Images\saipa250x150.png" />
+	  <None Remove="Resources\Images\sold.png" />
+	  <None Remove="Resources\Images\sport.webp" />
+	  <None Remove="Resources\Images\sport250x150.png" />
+	  <None Remove="Resources\Images\tappara250x150.png" />
+	  <None Remove="Resources\Images\tps250x150.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -79,6 +98,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\ChangeTeamPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateGroupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateTeamPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\GroupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\LeaguePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -88,7 +119,16 @@
 	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\MyGroupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\MyTeamPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlayerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\JoinGroupPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\SportPopup.xaml">
@@ -98,6 +138,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\TeamsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TradePlayerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\TradesPage.xaml">

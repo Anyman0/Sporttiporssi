@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sporttiporssi.Views.TradePlayerPage"
+             Title="Buy Players">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Source="teamlogos_liiga.jpg" Aspect="AspectFill" Opacity="0.3"></Image>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0" Grid.Row="0">
+                <ListView x:Name="PlayerListView" ItemsSource="{Binding AvailablePlayers}" SelectionMode="None"  Margin="0"  ItemTapped="PlayerList_Tapped">
+                    <ListView.Header>
+                        <Grid HeightRequest="50" BackgroundColor="Black">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Name" Grid.Column="0" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="Name"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="Role" Grid.Column="1" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="Role"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="G" Grid.Column="2" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="Goals"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="A" Grid.Column="3" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="Assists"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="P" IsVisible="True" Grid.Column="4" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="Points"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="Price" Grid.Column="5" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="Price"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="Team" Grid.Column="6" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="End" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="TeamShortName"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="Shots" IsVisible="False" Grid.Column="4" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SortCommand}" CommandParameter="Shots"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Name}" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Role}" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DisplayGoals}" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DisplayAssists}" Grid.Column="3" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DisplayPoints}" Grid.Column="4" IsVisible="True" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding FormattedPrice}" Grid.Column="5" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding TeamShortName}" Grid.Column="6" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DisplayShots}" Grid.Column="4" IsVisible="False" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Margin="5" BackgroundColor="LightGray">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Money remaining: " Grid.Row="0" Margin="5" FontAttributes="Bold"></Label>
+                    <Label Text="{Binding FundsLeft}" Grid.Row="0" Grid.Column="1" Margin="5" FontAttributes="Bold"></Label>
+                    <Label Text="Roles available: " Grid.Row="1" Margin="5" FontAttributes="Bold"></Label>
+                    <Label Text="{Binding RoleString}" Grid.Row="1" Grid.Column="1" Margin="5" FontAttributes="Bold"></Label>
+                    <Label Text="Chosen players:" Margin="5" Grid.Row="2" Grid.Column="0" FontAttributes="Bold"></Label>
+                    <ListView ItemsSource="{Binding SelectedPlayers}" Grid.Row="3" Grid.ColumnSpan="2" SelectionMode="Single" ItemTapped="SelectedPlayerList_Tapped" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Padding="10">
+                                        <Label Text="{Binding Name}" Margin="0,0,40,0" FontAttributes="Bold"></Label>
+                                        <Label Text="{Binding FormattedPrice}" FontAttributes="Bold"></Label>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Text="Finish" Grid.ColumnSpan="3" Grid.RowSpan="4" IsVisible="{Binding HasChosenAllAvailable}" 
+                            HorizontalOptions="End" VerticalOptions="FillAndExpand" Margin="0,0,0,0" 
+                            BackgroundColor="ForestGreen" TextColor="Black" FontAttributes="Bold"
+                            HeightRequest="190" WidthRequest="120" Clicked="FinishButton_Clicked"></Button>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

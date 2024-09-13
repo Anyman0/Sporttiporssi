@@ -6,8 +6,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Image Source="teamlogos_liiga.jpg" Aspect="AspectFill" Opacity="0.3" Grid.RowSpan="3"></Image>
         <Label Text="Kusipaskat" FontSize="24" FontAttributes="Bold" Margin="10" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0"></Label>
@@ -97,7 +97,28 @@
                     <Button Text="Sell" WidthRequest="120" HeightRequest="40" Margin="0,5,0,5" BackgroundColor="Chartreuse" TextColor="Black" FontAttributes="Bold"/>
                 </StackLayout>
             </StackLayout>
-            <Button Text="Complete trades" BackgroundColor="ForestGreen" Clicked="CompleteButton_Clicked"></Button>
+            <Button Text="To players" BackgroundColor="GreenYellow" TextColor="Black" FontAttributes="Bold"  Clicked="CompleteButton_Clicked"></Button>
+        </StackLayout>
+        <StackLayout Padding="10" Grid.Row="2" BackgroundColor="GhostWhite" Opacity="0.85">
+            <Grid ColumnSpacing="10" RowSpacing="10">
+                <!-- Define the rows and columns -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Money available -->
+                <Label Text="Money available:" Grid.Row="0" Grid.Column="0" Padding="10" FontAttributes="Bold" />
+                <Label Text="{Binding CurrentTeam.StartMoney}" Grid.Row="0" Grid.Column="1" Padding="10" />
+                <!-- Team total value -->
+                <Label Text="Team Total Value:" Grid.Row="1" Grid.Column="0" Padding="10" FontAttributes="Bold" />
+                <Label Text="{Binding CurrentTeam.StartMoney}" Grid.Row="0" Grid.Column="1" Padding="10" />
+               
+            </Grid>
         </StackLayout>
     </Grid>
 </ContentPage>

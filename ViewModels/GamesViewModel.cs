@@ -12,13 +12,15 @@ using Sporttiporssi.Helpers;
 using Sporttiporssi.Services;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Sporttiporssi.ViewModels
 {
     public class GamesViewModel : INotifyPropertyChanged
     {
         private readonly LeagueGamesService _gamesService;
-        private ObservableCollection<LiigaGameDto> _gamesByDate { get; set; }
+        private ObservableCollection<Game> _gamesByDate { get; set; }
+        private ObservableCollection<Event> _hockeyGamesByDate { get; set; }
         private LiigaGameStatsDto _gameStats {  get; set; }
 
         private readonly string Liiga_baseApiUrl = "https://www.liiga.fi/api/v2/";
@@ -489,13 +491,23 @@ namespace Sporttiporssi.ViewModels
 
 
 
-        public ObservableCollection<LiigaGameDto> GamesByDate
+        public ObservableCollection<Game> GamesByDate
         {
             get => _gamesByDate;
             set
             {
                 _gamesByDate = value;
                 OnPropertyChanged(nameof(GamesByDate));
+            }
+        }
+
+        public ObservableCollection<Event> HockeyGamesByDate
+        {
+            get => _hockeyGamesByDate;
+            set
+            {
+                _hockeyGamesByDate = value;
+                OnPropertyChanged(nameof(HockeyGamesByDate));
             }
         }
 
@@ -510,6 +522,18 @@ namespace Sporttiporssi.ViewModels
             }
         }
 
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+      
         public GamesViewModel(LeagueGamesService gamesService) 
         {
             _gamesService = gamesService;         
@@ -520,30 +544,55 @@ namespace Sporttiporssi.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public async Task LoadGamesAsync(DateTime date)
+        public async Task LoadGamesByDate(DateTime date)
         {
-            var gamesByDate = await _gamesService.LoadGamesAsync(date);
-            GamesByDate = new ObservableCollection<LiigaGameDto>(gamesByDate);        
-        }     
-        public async Task GetGameStats(int gameId, int season)
+            IsLoading = true;           
+            var games = await _gamesService.LoadGamesByDate(date);
+            //HockeyGamesByDate = new ObservableCollection<Event>(games);
+            GamesByDate = new ObservableCollection<Game>(games);
+            IsLoading = false;
+        }
+        public async Task GetGameStats(string hometeam, string awayteam, DateTime gameDate)
         {
-            var needToUpdate = true;
-            if(GameStats != null)
+            var needToUpdate = false;
+            //var firstGame = GamesByDate.OrderBy(g => g.Start).Select(s => s.Start).FirstOrDefault().ToString();
+            //var firstGameDate = DateTime.ParseExact(firstGame, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            var firstGameDate = GamesByDate.OrderBy(g => g.Start).Select(s => s.Start).FirstOrDefault();
+            var dateToCompare = new DateTime(
+                firstGameDate.Year,
+                firstGameDate.Month,
+                firstGameDate.Day,
+                13, // hour in 24-hour format (13 means 1 PM)
+                5,  // minutes
+                0   // seconds
+            );
+            if (DateTime.UtcNow.ToLocalTime() > dateToCompare)
             {
-                needToUpdate = GameStats.Game.Id != gameId;
-            }           
-            if(needToUpdate)
-            {
-                var gameStats = await _gamesService.GetGameStatsAsync(gameId, season);
-                GameStats = gameStats;
-            }            
+                needToUpdate = true;
+                if (GameStats != null)
+                {
+                    needToUpdate = true;
+                }
+                if (needToUpdate)
+                {
+                    var gameStats = await _gamesService.GetGameStatsAsync(hometeam, awayteam, gameDate);
+                    GameStats = gameStats;
+                }
+            }
         }
 
         private void OrganizePlayers()
         {
             if (_gameStats?.HomeTeamPlayers == null || _gameStats?.AwayTeamPlayers == null)
                 return;
+            if(_gameStats?.HomeTeamPlayers.Where(p => p.Line == 1 || p.Line == 2 || p.Line == 3 || p.Line == 4).ToList().Count == 0)
+            {
+                return;
+            }
+            if (_gameStats?.AwayTeamPlayers.Where(p => p.Line == 1 || p.Line == 2 || p.Line == 3 || p.Line == 4).ToList().Count == 0)
+            {
+                return;
+            }
 
             var line1Players = _gameStats.HomeTeamPlayers
                 .Where(p => p.Line == 1)
@@ -607,7 +656,7 @@ namespace Sporttiporssi.ViewModels
             Team2Player3 = line1AwayPlayers.FirstOrDefault(p => p.RoleCode == "VL");
             Team2Player4 = line1AwayPlayers.FirstOrDefault(p => p.RoleCode == "OP");
             Team2Player5 = line1AwayPlayers.FirstOrDefault(p => p.RoleCode == "VP");
-            Team2Player6 = line1AwayPlayers.FirstOrDefault(p => p.RoleCode == "OL");
+            Team2Player6 = line2AwayPlayers.FirstOrDefault(p => p.RoleCode == "OL");
             Team2Player7 = line2AwayPlayers.FirstOrDefault(p => p.RoleCode == "KH");
             Team2Player8 = line2AwayPlayers.FirstOrDefault(p => p.RoleCode == "VL");
             Team2Player9 = line2AwayPlayers.FirstOrDefault(p => p.RoleCode == "OP");
@@ -628,12 +677,12 @@ namespace Sporttiporssi.ViewModels
             AwayGoalie = awayGoalie;
         }
 
-        public void ToggleRosterExpansion(LiigaGameDto game)
+        public void ToggleRosterExpansion(Game game)
         {
             game.IsRosterExpanded = !game.IsRosterExpanded;
         }
 
-        public void ToggleStatsExpansion(LiigaGameDto game)
+        public void ToggleStatsExpansion(Event game)
         {
             game.IsStatsExpanded = !game.IsStatsExpanded;
         }

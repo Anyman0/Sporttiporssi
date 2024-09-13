@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sporttiporssi.Views.GroupPage"
+             Title="Groups">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="CreateGroupToolbarItem" Order="Primary" Priority="0" Text="Create Group" Clicked="CreateGroupToolbarItem_Clicked" ></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <!--<VerticalStackLayout>
+        <SearchBar Placeholder="Search for a group.."></SearchBar>
+        <CollectionView ItemsSource="{Binding FantasyGroups}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding GroupName}"></Label>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>-->
+    <StackLayout>
+        <SearchBar Placeholder="Search for a group..."></SearchBar>
+        <ListView ItemsSource="{Binding FantasyGroups}" SelectionMode="None" Margin="10" ItemTapped="ListView_ItemTapped">
+            <ListView.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Group Name" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    <Label Text="Trades/Phase" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    <Label Text="Created Date" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding GroupName}" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding TradesPerPhase}" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding CreatedDate, StringFormat='{0:dd.MM.yyyy}'}" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

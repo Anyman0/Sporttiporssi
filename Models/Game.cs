@@ -71,6 +71,71 @@ namespace Sporttiporssi.Models
             }
         }
 
+        private int _homeTeamRank;
+        private int _awayTeamRank;
+
+        public int HomeTeamRank
+        {
+            get => _homeTeamRank;
+            set
+            {
+                _homeTeamRank = value;
+                OnPropertyChanged(nameof(HomeTeamRank));
+            }
+        }
+
+        public int AwayTeamRank
+        {
+            get => _awayTeamRank;
+            set
+            {
+                _awayTeamRank = value;
+                OnPropertyChanged(nameof(AwayTeamRank));
+            }
+        }
+
+        public string EventStartLocalTime
+        {
+            get
+            {
+                if (!Ended)
+                {
+                    try
+                    {
+                        DateTime eventDateTimeUtc = Start;
+                        // Find the Finnish time zone
+                        TimeZoneInfo finlandTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Europe/Helsinki");
+                        // Convert the UTC time to Finnish local time
+                        DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(eventDateTimeUtc, finlandTimeZone);
+
+                        // Return time in "HH:mm" format
+                        return localDateTime.ToString("HH:mm");
+                    }
+                    catch (TimeZoneNotFoundException ex)
+                    {
+                        // Handle specific time zone not found exception
+                        return $"Time zone not found: {ex.Message}";
+                    }
+                    catch (InvalidTimeZoneException ex)
+                    {
+                        // Handle invalid time zone data
+                        return $"Invalid time zone data: {ex.Message}";
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle general exceptions
+                        return $"Error: {ex.Message}";
+                    }
+                }
+                else
+                {
+                    var homeGoals = HomeTeamGoals;
+                    var awayGoals = AwayTeamGoals;
+                    return $"{HomeTeamGoals} - {AwayTeamGoals}";
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

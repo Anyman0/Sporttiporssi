@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Sporttiporssi.Helpers.Controls"
+             x:Class="Sporttiporssi.Views.CreateGroupPage"            
+             Title="Create Group">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <controls:MultiplierControl x:Key="MultiplierControl"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="10">
+            <Label Text="Group Name" />
+            <Entry x:Name="GroupNameEntry" Placeholder="Enter group name" />
+
+            <Label Text="Trades Per Phase"/>
+            <controls:MultiplierControl x:Name="TradesPerPhaseMultiplierControl"/>
+
+            <Label Text="Start Money" />
+            <controls:MultiplierControl x:Name="StartMoneyMultiplierControl"/>
+
+            <Label Text="Offence Pass Points" />
+            <controls:MultiplierControl x:Name="OffencePassMultiplierControl" />
+
+            <Label Text="Offence Goal Points" />
+            <controls:MultiplierControl x:Name="OffenceGoalMultiplierControl" />
+
+            <Label Text="Offence 2min Penalty" />
+            <controls:MultiplierControl x:Name="OffencePenaltyMultiplierControl" />
+
+            <Label Text="Offence 10min Penalty" />
+            <controls:MultiplierControl x:Name="OffencePenalty10MultiplierControl" />
+
+            <Label Text="Offence 20min Penalty" />
+            <controls:MultiplierControl x:Name="OffencePenalty20MultiplierControl" />
+
+            <Label Text="Offence Shot Points" />
+            <controls:MultiplierControl x:Name="OffenceShotMultiplierControl" />
+
+            <Label Text="Offence Power Points" />
+            <controls:MultiplierControl x:Name="OffencePowerMultiplierControl" />
+
+            <Label Text="Defence Pass Points" />
+            <controls:MultiplierControl x:Name="DefencePassMultiplierControl" />
+
+            <Label Text="Defence Goal Points" />
+            <controls:MultiplierControl x:Name="DefenceGoalMultiplierControl" />
+
+            <Label Text="Defence 2min Penalty" />
+            <controls:MultiplierControl x:Name="DefencePenaltyMultiplierControl" />
+
+            <Label Text="Defence 10min Penalty" />
+            <controls:MultiplierControl x:Name="DefencePenalty10MultiplierControl" />
+
+            <Label Text="Defence 20min Penalty" />
+            <controls:MultiplierControl x:Name="DefencePenalty20MultiplierControl" />
+
+            <Label Text="Defence Shot Points" />
+            <controls:MultiplierControl x:Name="DefenceShotMultiplierControl" />
+
+            <Label Text="Defence Power Points" />
+            <controls:MultiplierControl x:Name="DefencePowerMultiplierControl" />
+
+            <Label Text="Goalie Pass Points" />
+            <controls:MultiplierControl x:Name="GoaliePassMultiplierControl" />
+
+            <Label Text="Goalie Goal Points" />
+            <controls:MultiplierControl x:Name="GoalieGoalMultiplierControl" />
+
+            <Label Text="Goalie Save Points" />
+            <controls:MultiplierControl x:Name="GoaliaSaveMultiplierControl" />
+
+            <Label Text="Goalie Win Points" />
+            <controls:MultiplierControl x:Name="GoalieWinMultiplierControl" />
+
+            <Label Text="Goalie Shutout Points" />
+            <controls:MultiplierControl x:Name="GoalieShutoutMultiplierControl" />
+
+            <Label Text="Face Off Points" />
+            <controls:MultiplierControl x:Name="FaceOffMultiplierControl" />
+
+            <Label Text="Winning Goal Points"/>
+            <controls:MultiplierControl x:Name="WinningGoalMultiplier"/>
+         
+            <Label Text="Group Password" />
+            <Entry x:Name="GroupPasswordEntry" IsPassword="True" Placeholder="Enter group password" />
+
+            <Button Text="Create Group" Clicked="CreateGroup_Clicked"/>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

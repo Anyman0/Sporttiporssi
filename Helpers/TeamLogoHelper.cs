@@ -10,8 +10,22 @@ namespace Sporttiporssi.Helpers
     {
         public static readonly Dictionary<string, string> TeamLogos = new Dictionary<string, string>
         {
-            { "Sport", "sport_logo.jpg" },
-            { "Kärpät", "karppa_logo.png" }
+            { "Sport", "sport.webp" },
+            { "Kärpät", "karpat.webp" },
+            { "KalPa", "kalpa.webp" },
+            { "SaiPa", "saipa.webp" },
+            { "KooKoo", "kookoo.webp" },
+            { "JYP", "jyp.webp" },
+            { "HIFK", "hifk.webp" },
+            { "Jukurit", "jukurit.webp" },
+            { "HPK", "hpk.webp" },
+            { "Lukko", "lukko.webp" },
+            { "Tappara", "tappara.webp" },
+            { "Ilves", "ilves.webp" },
+            { "TPS", "tps.webp" },
+            { "Ässät", "assat.webp" },
+            { "Pelicans", "pelicans.webp" },
+            { "K-Espoo", "kespoo.webp" }
         };
         public static string GetTeamLogo(String teamName)
         {

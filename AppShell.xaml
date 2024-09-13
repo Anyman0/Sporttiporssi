@@ -22,9 +22,23 @@
     <!-- Flyout Menu Header -->
     <Shell.FlyoutHeader>
         <StackLayout Padding="10">
-            <Label Text="Liiga" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center"/>
+            <Label Text="LIIGA" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Margin="10"
+                   x:Name="LiigaLabel">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ChooseSerie_Tapped">
+                    </TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="NHL" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Margin="10"
+                    x:Name="NHLLabel">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ChooseSerie_Tapped">
+                    </TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
         </StackLayout>
     </Shell.FlyoutHeader>
+
 
     <!-- Flyout Menu Content -->
     <Shell.FlyoutContent>
@@ -38,8 +52,12 @@
     </Shell.FlyoutContent>
 
     <Shell.ToolbarItems>
-        <ToolbarItem Order="Primary" Priority="0" Text="Logout" Clicked="Logout_Clicked"></ToolbarItem>
+        
     </Shell.ToolbarItems>
+    
+    <!--<Shell.ToolbarItems>
+        <ToolbarItem Order="Primary" Priority="0" Text="Logout" Clicked="Logout_Clicked"></ToolbarItem>
+    </Shell.ToolbarItems>-->
     
     <TabBar>
         <Tab Title="Home" Route="main">

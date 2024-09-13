@@ -18,16 +18,16 @@ namespace Sporttiporssi.Services
         public LocalDatabaseService(string dbPath)
         {
             _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<LeagueStanding>().Wait();
+            //_database.CreateTableAsync<LeagueStanding>().Wait();
             _database.CreateTableAsync<Game>().Wait();
             _database.CreateTableAsync<Player>().Wait();
         }
 
         // **** FETCHES **** //
-        public Task<List<LeagueStanding>> GetAllStandingsAsync()
-        {
-            return _database.Table<LeagueStanding>().ToListAsync();
-        }     
+        //public Task<List<LeagueStanding>> GetAllStandingsAsync()
+        //{
+        //    return _database.Table<LeagueStanding>().ToListAsync();
+        //}     
         public Task<List<Game>> GetAllGamesAsync()
         {
             return _database.Table<Game>().ToListAsync();
@@ -64,10 +64,10 @@ namespace Sporttiporssi.Services
             return await _database.Table<Game>().Where(g => g.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<LeagueStanding> GetStandingAsync(string id)
-        {
-            return await _database.Table<LeagueStanding>().Where(s => s.TeamId == id).FirstOrDefaultAsync();
-        }
+        //public async Task<LeagueStanding> GetStandingAsync(string id)
+        //{
+        //    return await _database.Table<LeagueStanding>().Where(s => s.TeamId == id).FirstOrDefaultAsync();
+        //}
       
         // **** INSERTS **** //
         public Task<int> SaveSeasonAsync(LeagueStanding season)

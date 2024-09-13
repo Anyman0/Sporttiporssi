@@ -1,15 +1,16 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sporttiporssi.Models
 {
-    public class Player
+    public class Player :  INotifyPropertyChanged
     {
-        [PrimaryKey]
         public int PlayerId { get; set; }
         public int TeamId { get; set; }
         public string? TeamName { get; set; }
@@ -47,10 +48,39 @@ namespace Sporttiporssi.Models
         public int? FaceoffsWon { get; set; }
         public int? FaceoffsLost { get; set; }
         public double? ExpectedGoals { get; set; }
-        public int? TimeOnIceAvg { get; set; }
+        public string? TimeOnIceAvg { get; set; }
         public double? FaceoffWonPercentage { get; set; }
         public double? ShotPercentage { get; set; }
         public int? FaceoffsTotal { get; set; }
         public DateTime LastUpdated { get; set; }
+        public int? FTP {  get; set; }
+        public int Price { get; set; }
+        public string? Name => $"{FirstName[0]}.{LastName}";
+        public string? FormattedPrice => $"{Price / 1000}k";
+
+        public string DisplayGoals => Goals.HasValue ? Goals.Value.ToString() : "-";
+        public string DisplayAssists => Assists.HasValue ? Assists.Value.ToString() : "-";
+        public string DisplayPoints => Points.HasValue ? Points.Value.ToString() : "-";
+        public string DisplayShots => Shots.HasValue ? Shots.Value.ToString() : "-";
+        private bool _isSold;
+        public bool IsSold
+        {
+            get => _isSold;
+            set
+            {
+                if (_isSold != value)
+                {
+                    _isSold = value;
+                    OnPropertyChanged(nameof(IsSold));   
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }

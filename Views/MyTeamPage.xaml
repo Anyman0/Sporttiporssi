@@ -2,7 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sporttiporssi.Views.MyTeamPage"
+             xmlns:converters="clr-namespace:Sporttiporssi.Helpers.Converters"
              Title="MyTeamPage" BackgroundColor="LightGray">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
+            <converters:SolidColorConverter x:Key="SolidColorConverter"/>
+            <converters:GroupNameToLabelTextConverter x:Key="GroupNameToLabelTextConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -10,86 +18,87 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Image Source="teamlogos_liiga.jpg" Aspect="AspectFill" Opacity="0.3" Grid.RowSpan="3"></Image>
-        <Label Text="Kusipaskat" FontSize="24" FontAttributes="Bold" Margin="10" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0"></Label>
-        <StackLayout Padding="10" Grid.Row="1">
-            <!-- Top row -->
-            <StackLayout Orientation="Horizontal" Spacing="10" Margin="-6,0,0,5">
-                <!-- Top left item -->
-                <Frame BackgroundColor="AntiqueWhite"  Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
-                    <StackLayout>
-                        <Label Text="Hyökkääjä" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
-                        <Label Text="Ben Player" HorizontalOptions="Center" />
-                        <Label Text="25 FTP" HorizontalOptions="Center" />
-                        <Label Text="320 000€" HorizontalOptions="Center" />
-                    </StackLayout>
-                </Frame>
-                <!-- Top middle item -->
-                <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
-                    <StackLayout>
-                        <Label Text="Hyökkääjä" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
-                        <Label Text="Ben Player" HorizontalOptions="Center" />
-                        <Label Text="25 FTP" HorizontalOptions="Center" />
-                        <Label Text="320 000€" HorizontalOptions="Center" />
-                    </StackLayout>
-                </Frame>
-
-                <!-- Top right item -->
-                <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
-                    <StackLayout>
-                        <Label Text="Hyökkääjä" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
-                        <Label Text="Ben Player" HorizontalOptions="Center" />
-                        <Label Text="25 FTP" HorizontalOptions="Center" />
-                        <Label Text="320 000€" HorizontalOptions="Center" />
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
-
-            <!-- Bottom row -->
-            <StackLayout Orientation="Horizontal" Spacing="10" Margin="-6,0,0,5">
-                <!-- Bottom left item -->
-                <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
-                    <StackLayout>
-                        <Label Text="Puolustaja" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
-                        <Label Text="Ben Player" HorizontalOptions="Center" />
-                        <Label Text="25 FTP" HorizontalOptions="Center" />
-                        <Label Text="320 000€" HorizontalOptions="Center" />
-                    </StackLayout>
-                </Frame>
-
-                <!-- Bottom middle item -->
-                <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
-                    <StackLayout>
-                        <Label Text="Maalivahti" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
-                        <Label Text="Ben Player" HorizontalOptions="Center" />
-                        <Label Text="25 FTP" HorizontalOptions="Center" />
-                        <Label Text="320 000€" HorizontalOptions="Center" />
-                    </StackLayout>
-                </Frame>
-
-                <!-- Bottom right item -->
-                <Frame BackgroundColor="AntiqueWhite" Padding="10" CornerRadius="5" FlexLayout.Basis="0.33">
-                    <StackLayout>
-                        <Label Text="Puolustaja" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Image Source="coach.png" HeightRequest="100" WidthRequest="100" />
-                        <Label Text="Ben Player" HorizontalOptions="Center" />
-                        <Label Text="25 FTP" HorizontalOptions="Center" />
-                        <Label Text="320 000€" HorizontalOptions="Center" />
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
-            <Button Text="Trade players" Clicked="TradeButton_Clicked"></Button>
+        <Label Text="{Binding CurrentTeam.TeamName}" FontSize="24" FontAttributes="Bold" Margin="10" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0"></Label>
+        <Label Text="{Binding GroupName, Converter={StaticResource GroupNameToLabelTextConverter}}" FontSize="14" FontAttributes="Italic, Bold" Grid.Row="0" VerticalOptions="Center" 
+               HorizontalOptions="End" Margin="10" TextColor="Blue">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="JoinGroup_Tapped" NumberOfTapsRequired="1"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+        <Label Text="Change Team" FontSize="14" FontAttributes="Italic, Bold" Grid.Row="0" VerticalOptions="Center" 
+       HorizontalOptions="Start" Margin="10" TextColor="Blue">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ChangeTeam_Tapped"  NumberOfTapsRequired="1"></TapGestureRecognizer>
+            </Label.GestureRecognizers>
+        </Label>
+        <StackLayout Padding="10" Grid.Row="1" IsVisible="{Binding UserHasTeams}">
+           
+            <CollectionView ItemsSource="{Binding CurrentTeamPlayers}" ItemsLayout="VerticalGrid, 3">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="AntiqueWhite"  Padding="10" CornerRadius="5">
+                            <StackLayout>
+                                <Label Text="{Binding Role}" FontAttributes="Bold" HorizontalOptions="Center" />
+                                <Grid>
+                                    <Image Source="{Binding PictureUrl}" HeightRequest="100" WidthRequest="100">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="SellPlayer_Tapped"></TapGestureRecognizer>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image Source="sold.png" HeightRequest="100" WidthRequest="100" IsVisible="{Binding IsSold}" />
+                                </Grid>
+                                <Label Text="{Binding Name}" HorizontalOptions="Center" />
+                                <Label Text="{Binding FTP}" HorizontalOptions="Center" />
+                                <Label Text="{Binding Price}" HorizontalOptions="Center" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Button Text="Trade players" Clicked="TradeButton_Clicked" IsVisible="{Binding HasSoldPlayers}" Margin="10"></Button>
         </StackLayout>
+        <Button Text="Create a new team" Grid.Row="1" IsVisible="{Binding UserHasTeams, Converter={StaticResource InvertedBooleanConverter}}" BackgroundColor="LightGray"
+                TextColor="Black" FontAttributes="Bold" Clicked="CreateTeam_Clicked"></Button>
+       
         <StackLayout Padding="10" Grid.Row="2" BackgroundColor="GhostWhite" Opacity="0.85">
-            <Label Text="Team total value: XXX " Padding="10"></Label>
-            <Label Text="Total points earned today: XXX" Padding="10" />
-            <Label Text="Total points earned this season: XXX" Padding="10" />
-            <Label Text="Team group: XXX" Padding="10" />           
-            <Label Text="Group standing: XXX" Padding="10"/>
+            <Grid ColumnSpacing="10" RowSpacing="10">
+                <!-- Define the rows and columns -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Team total value -->
+                <Label Text="Funds left:" Grid.Row="0" Grid.Column="0" Padding="10" FontAttributes="Bold" />
+                <Label Text="{Binding FundsLeftString}" Grid.Row="0" Grid.Column="1" Padding="10" FontAttributes="Bold" />
+               
+                <!-- Total points earned  -->
+                <Label Text="Total FTP:" Grid.Row="1" Grid.Column="0" Padding="10" FontAttributes="Bold" />
+                <Label Text="{Binding TotalPointsEarnedThisSeason}" Grid.Row="1" Grid.Column="1" Padding="10" />
+
+                <Label Text="Trades left:" Grid.Row="2" Grid.Column="0" Padding="10" FontAttributes="Bold"></Label>
+                <Label Text="{Binding TradesLeftString}" Grid.Row="2" Grid.Column="1" Padding="10"/>
+
+                <!-- Group display (combines GroupName and GroupStanding) -->
+                <Label Text="Group:" Grid.Row="3" Grid.Column="0" Padding="10" FontAttributes="Bold" />
+                <StackLayout Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Row="3" HorizontalOptions="Center">
+                    <Label Text="{Binding GroupName}" Padding="10" FontAttributes="Bold" TextColor="Blue">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Group_Tapped"></TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="{Binding GroupStanding}" Padding="10" FontAttributes="Bold"/>
+                </StackLayout>
+            </Grid>
         </StackLayout>
+
     </Grid>
 </ContentPage>
