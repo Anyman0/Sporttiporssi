@@ -37,9 +37,9 @@ namespace Sporttiporssi
                 return new LocalDatabaseService(path);
             });          
             // PROD API BASE
-            //Preferences.Set("ApiBaseAddress", "https://sporttiporssi.azurewebsites.net/api/");
+            Preferences.Set("ApiBaseAddress", "https://sporttiporssi.azurewebsites.net/api/");
             // DEV API BASE
-            Preferences.Set("ApiBaseAddress", "https://10.0.2.2:7092/api/");
+            //Preferences.Set("ApiBaseAddress", "https://10.0.2.2:7092/api/");
 
             builder.Services.AddHttpClient();
            

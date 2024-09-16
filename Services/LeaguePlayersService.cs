@@ -96,7 +96,7 @@ namespace Sporttiporssi.Services
         public async Task<bool> AddPlayersToTeam(int playerId)
         {
             string authToken = await SecureStorage.GetAsync("auth_token");
-            string chosenTeam = await SecureStorage.GetAsync("chosen_team");
+            string chosenTeam = Preferences.Get("chosen_team", string.Empty);
             Guid fantasyTeamId = Guid.Parse(chosenTeam);
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

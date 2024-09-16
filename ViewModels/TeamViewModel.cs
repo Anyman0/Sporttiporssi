@@ -268,9 +268,10 @@ namespace Sporttiporssi.ViewModels
             }
             FantasyTeams = await _teamService.AllFantasyTeamsByUserAndSerie();
             UserHasTeams = FantasyTeams != null && FantasyTeams.Any();
+            bool chosenTeamExists = FantasyTeams.Where(t => t.FantasyTeamId.ToString() == chosenTeam).Any();
             if(UserHasTeams)
             { 
-                if(chosenTeam == null || string.IsNullOrEmpty(chosenTeam))
+                if(string.IsNullOrEmpty(chosenTeam) || !chosenTeamExists)
                 {
                     CurrentTeam = FantasyTeams.FirstOrDefault();
                     Preferences.Set("chosen_team", CurrentTeam.FantasyTeamId.ToString());
