@@ -204,7 +204,16 @@ namespace Sporttiporssi.ViewModels
 
         private async Task<bool> CanWeTrade()
         {
-            var canTrade = await _teamService.CanTrade();
+            var currentSerie = Preferences.Get("currentserie", string.Empty);
+            bool canTrade = false;
+            if (string.IsNullOrEmpty(currentSerie))
+            {
+                canTrade = false;
+            }
+            else
+            {
+                canTrade = await _teamService.CanTrade(currentSerie);
+            }           
             return canTrade;
         }
 
@@ -332,10 +341,10 @@ namespace Sporttiporssi.ViewModels
                                 
                 FundsLeftString = $"{FundsLeft} / {HockeyDefaults.StartMoney}";
                 TradesLeftString = $"{(MaxTrades - CurrentTeam.TradesThisPhase)} / {MaxTrades}";
-                if(updatePlayers)
+                if(!CurrentTeamPlayers.SequenceEqual(orderedPlayers))
                 {
                     CurrentTeamPlayers = orderedPlayers;
-                }
+                }               
             }   
             else
             {

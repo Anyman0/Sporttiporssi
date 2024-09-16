@@ -26,7 +26,7 @@ namespace Sporttiporssi.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            //gameDate = DateTime.Now.Date;
+
             var gameDateString = Preferences.Get("chosenDate", string.Empty);
             if(string.IsNullOrEmpty(gameDateString)) 
             {
@@ -86,7 +86,7 @@ namespace Sporttiporssi.Views
                 if (game.IsRosterExpanded)
                 {
                     //Load labels with rosterdata
-                    await _gamesViewModel.GetGameStats(game.HomeTeamName, game.AwayTeamName, game.Start);
+                    await _gamesViewModel.GetGameStats(game.HomeTeamName, game.AwayTeamName, game.Start, game.Id);
                 }
             }
         }

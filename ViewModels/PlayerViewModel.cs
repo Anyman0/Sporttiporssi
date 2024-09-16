@@ -129,7 +129,8 @@ namespace Sporttiporssi.ViewModels
         public async Task LoadAllPlayersAsync()
         {
             SelectedPlayers = new ObservableCollection<Player>();
-            Players = await _playersService.GetPlayersAsync();
+            //Players = await _playersService.GetPlayersAsync();
+            Players = await _playersService.GetPlayersByRole(AvailablePlayerRoles.ToArray());
             FilterAvailablePlayers();
         }  
 

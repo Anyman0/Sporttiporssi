@@ -42,15 +42,6 @@
                                 <DataTemplate>
                                     <StackLayout Orientation="Vertical">
                                         <StackLayout Orientation="Horizontal" Padding="5" Margin="15" >
-                                            <!--<StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="{Binding HomeTeamName}" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
-                                                    <Image Source="{Binding HomeTeamLogo}" HeightRequest="40" WidthRequest="40" Aspect="AspectFill" Margin="10"/>
-                                                </StackLayout>
-                                                <Label Text="{Binding HomeTeamRank, StringFormat='pos: {0}'}" FontSize="14" FontAttributes="Bold"/>
-                                                <Label Text="{Binding HomeTeam.Goal}" FontSize="14" FontAttributes="Bold"/>
-                                                --><!--<Label Text="{Binding LastHomeGames, StringFormat='Games: {0}'}" FontSize="14" FontAttributes="Bold"/>--><!--
-                                            </StackLayout>-->
                                             <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
@@ -98,321 +89,68 @@
                                                 </Grid>
                                             </StackLayout>
                                         </StackLayout>
-                                     
+
                                         <!-- ROSTERS -->
                                         <StackLayout IsVisible="{Binding IsRosterExpanded}" Orientation="Vertical" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
-                                            <Label Text="1. Line" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
-                                            
-                                      
-                                            <Grid HorizontalOptions="Center" Padding="5">
+                                            <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-                                       
-                                              
-                                                <Label x:Name="Team1Player1Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player1.Jersey, StringFormat='({0})'}"  FontSize="14" Grid.Row="0" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player1Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player1.LastName}" FontSize="14" Grid.Row="0" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player1Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player1.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="2"/>
-                                              
-                                                <Label x:Name="Team2Player1Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player1.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player1Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player1.LastName}" FontSize="14" HorizontalOptions="Center" Grid.Row="0" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player1Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player1.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="0" Grid.Column="5"/>
-                                             
-                                                <Label x:Name="Team1Player2Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player2.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player2Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player2.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player2Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player2.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="2"/>
-                                                
-                                                <Label x:Name="Team2Player2Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player2.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player2Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player2.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player2Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player2.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="5"/>
-                                             
-                                                <Label x:Name="Team1Player3Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player3.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player3Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player3.LastName}" FontSize="14" HorizontalOptions="Center" Grid.Row="2" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player3Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player3.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="2"/>
+                                                <CollectionView ItemsSource="{Binding GroupedPlayers}" IsGrouped="True" HorizontalOptions="Center" Grid.Column="0">
+                                                    <CollectionView.GroupHeaderTemplate>
+                                                        <DataTemplate>
+                                                            <Label Text="{Binding LineName}" FontSize="16" FontAttributes="Bold" 
+                                                                   HorizontalOptions="Center" Margin="5"></Label>
+                                                        </DataTemplate>
+                                                    </CollectionView.GroupHeaderTemplate>
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="30"/>
+                                                                    <ColumnDefinition Width="120"/>
+                                                                    <ColumnDefinition Width="30"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Label Text="{Binding Jersey, StringFormat='({0})'}" FontSize="14" Grid.Column="0"></Label>
+                                                                <Label Text="{Binding LastName}" FontSize="14" HorizontalOptions="Center" Grid.Column="1"/>
+                                                                <Label Text="{Binding RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Column="2"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+
+                                                <CollectionView ItemsSource="{Binding AwayGroupedPlayers}" IsGrouped="True" HorizontalOptions="Center" Grid.Column="1">
+                                                    <CollectionView.GroupHeaderTemplate>
+                                                        <DataTemplate>
+                                                            <Label Text="{Binding LineName}" FontSize="16" FontAttributes="Bold" 
+                                                                    HorizontalOptions="Center" Margin="5"></Label>
+                                                        </DataTemplate>
+                                                    </CollectionView.GroupHeaderTemplate>
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="30"/>
+                                                                    <ColumnDefinition Width="120"/>
+                                                                    <ColumnDefinition Width="30"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Label Text="{Binding LastName}" FontSize="14" HorizontalOptions="Center" Grid.Column="1"/>
+                                                                <Label Text="{Binding RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Column="0"/>
+                                                                <Label Text="{Binding Jersey, StringFormat='({0})'}" FontSize="14" Grid.Column="2"></Label>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+
+                                            </Grid>
                                            
-                                                <Label x:Name="Team2Player3Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player3.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player3Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player3.LastName}" FontSize="14" HorizontalOptions="Center" Grid.Row="2" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player3Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player3.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="5"/>
-                                               
-                                                <Label x:Name="Team1Player4Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player4.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player4Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player4.LastName}" FontSize="14" HorizontalOptions="Center" Grid.Row="3" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player4Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player4.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="2"/>
-                                            
-                                                <Label x:Name="Team2Player4Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player4.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player4Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player4.LastName}" FontSize="14" HorizontalOptions="Center" Grid.Row="3" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player4Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player4.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="5"/>
-                                             
-                                                <Label x:Name="Team1Player5Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player5.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player5Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player5.LastName}" FontSize="14" HorizontalOptions="Center" Grid.Row="4" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player5Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player5.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="2"/>
-                                            
-                                                <Label x:Name="Team2Player5Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player5.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player5Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player5.LastName}" FontSize="14" HorizontalOptions="Center" Grid.Row="4" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player5Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player5.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="5"/>
-                                            </Grid>
-
-                                            <Label Text="2. Line" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
-                                        
-                                            <Grid HorizontalOptions="Center" Padding="5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-
-                                              
-                                                <Label x:Name="Team1Player6Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player6.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="0" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player6Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player6.LastName}" FontSize="14" Grid.Row="0" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player6Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player6.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="2"/>
-                                                
-                                                <Label x:Name="Team2Player6Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player6.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player6Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player6.LastName}" FontSize="14" Grid.Row="0" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player6Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player6.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="0" Grid.Column="5"/>
-
-                                               
-                                                <Label x:Name="Team1Player7Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player7.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player7Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player7.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player7Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player7.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="2"/>
-                                              
-                                                <Label x:Name="Team2Player7Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player7.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player7Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player7.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player7Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player7.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="5"/>
-
-                                                
-                                                <Label x:Name="Team1Player8Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player8.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player8Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player8.LastName}" FontSize="14" Grid.Row="2" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player8Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player8.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="2"/>
-                                                 
-                                                <Label x:Name="Team2Player8Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player8.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player8Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player8.LastName}" FontSize="14" Grid.Row="2" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player8Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player8.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="5"/>
-
-                                                
-                                                <Label x:Name="Team1Player9Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player9.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player9Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player9.LastName}" FontSize="14" Grid.Row="3" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player9Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player9.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="2"/>
-                                                 
-                                                <Label x:Name="Team2Player9Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player9.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player9Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player9.LastName}" FontSize="14" Grid.Row="3" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player9Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player9.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="5"/>
-
-                                               
-                                                <Label x:Name="Team1Player10Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player10.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player10Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player10.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player10Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player10.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="2"/>
-                                                 
-                                                <Label x:Name="Team2Player10Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player10.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player10Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player10.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player10Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player10.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="5"/>
-                                            </Grid>
-
-                                            <Label Text="3. Line" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
-                                          
-                                            <Grid HorizontalOptions="Center" Padding="5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-
-                                                
-                                                <Label x:Name="Team1Player11Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player11.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="0" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player11Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player11.LastName}" FontSize="14" Grid.Row="0" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player11Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player11.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="2"/>
-                                               
-                                                <Label x:Name="Team2Player11Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player11.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player11Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player11.LastName}" FontSize="14" Grid.Row="0" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player11Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player11.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="0" Grid.Column="5"/>
-
-                                                
-                                                <Label x:Name="Team1Player12Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player12.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player12Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player12.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player12Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player12.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="2"/>
-                                                
-                                                <Label x:Name="Team2Player12Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player12.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player12Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player12.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player12Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player12.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="5"/>
-
-                                               
-                                                <Label x:Name="Team1Player13Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player13.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player13Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player13.LastName}" FontSize="14" Grid.Row="2" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player13Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player13.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="2"/>
-                                                
-                                                <Label x:Name="Team2Player13Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player13.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player13Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player13.LastName}" FontSize="14" Grid.Row="2" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player13Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player13.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="5"/>
-
-                                                
-                                                <Label x:Name="Team1Player14Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player14.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player14Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player14.LastName}" FontSize="14" Grid.Row="3" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player14Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player14.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="2"/>
-                                                
-                                                <Label x:Name="Team2Player14Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player14.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player14Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player14.LastName}" FontSize="14" Grid.Row="3" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player14Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player14.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="5"/>
-
-                                                 
-                                                <Label x:Name="Team1Player15Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player15.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player15Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player15.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player15Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player15.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="2"/>
-                                                 
-                                                <Label x:Name="Team2Player15Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player15.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player15Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player15.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player15Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player15.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="5"/>
-                                            </Grid>
-
-                                            <Label Text="4. Line" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
-                           
-                                            <Grid HorizontalOptions="Center" Padding="5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-
-                                                
-                                                <Label x:Name="Team1Player16Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player16.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="0" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player16Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player16.LastName}" FontSize="14" Grid.Row="0" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player16Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player16.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="2"/>
-                                              
-                                                <Label x:Name="Team2Player16Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player16.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="0" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player16Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player16.LastName}" FontSize="14" Grid.Row="0" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player16Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player16.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="0" Grid.Column="5"/>
-
-                                                
-                                                <Label x:Name="Team1Player17Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player17.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player17Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player17.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player17Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player17.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="2"/>
-                                               
-                                                <Label x:Name="Team2Player17Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player17.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="1" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player17Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player17.LastName}" FontSize="14" Grid.Row="1" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player17Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player17.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="1" Grid.Column="5"/>
-
-                                             
-                                                <Label x:Name="Team1Player18Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player18.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player18Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player18.LastName}" FontSize="14" Grid.Row="2" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player18Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player18.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="2"/>
-                                             
-                                                <Label x:Name="Team2Player18Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player18.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="2" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player18Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player18.LastName}" FontSize="14" Grid.Row="2" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player18Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player18.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="2" Grid.Column="5"/>
-
-                                        
-                                                <Label x:Name="Team1Player19Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player19.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player19Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player19.LastName}" FontSize="14" Grid.Row="3" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player19Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player19.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="2"/>
-                                                
-                                                <Label x:Name="Team2Player19Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player19.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="3" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player19Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player19.LastName}" FontSize="14" Grid.Row="3" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player19Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player19.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="3" Grid.Column="5"/>
-
-                                                 <!--Team 1 Player 20--> 
-                                                <Label x:Name="Team1Player20Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player20.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="0"/>
-                                                <Label x:Name="Team1Player20Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player20.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1Player20Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team1Player20.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="2"/>
-                                                 <!--Team 2 Player 20--> 
-                                                <Label x:Name="Team2Player20Position" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player20.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="3"/>
-                                                <Label x:Name="Team2Player20Name" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player20.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2Player20Number" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Team2Player20.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="5"/>
-                                            </Grid>
-                                          
-                                            <Label Text="Goalies" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
-
-                                            <!--Team 1 and Team 2 Goalies-->
-                                            <Grid HorizontalOptions="Center" Padding="5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="30"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-
-                                                 <!--Team 1 Goalie--> 
-                                                <Label x:Name="Team1GoalieNumber" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.HomeGoalie.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="0"/>
-                                                <Label x:Name="Team1GoalieName" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.HomeGoalie.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="1"/>
-                                                <Label x:Name="Team1GoaliePosition" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.HomeGoalie.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="2"/>
-                                                 <!--Team 2 Goalie--> 
-                                                <Label x:Name="Team2GoaliePosition" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AwayGoalie.RoleCode}" FontSize="14" FontAttributes="Bold" Grid.Row="4" Grid.Column="3"/>
-                                                <Label x:Name="Team2GoalieName" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AwayGoalie.LastName}" FontSize="14" Grid.Row="4" HorizontalOptions="Center" Grid.Column="4"/>
-                                                <Label x:Name="Team2GoalieNumber" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AwayGoalie.Jersey, StringFormat='({0})'}" FontSize="14" Grid.Row="4" Grid.Column="5"/>
-
-                                            </Grid>
-
                                         </StackLayout>
-                                         <!--STATS--> 
+                                        <!--STATS-->
                                         <StackLayout IsVisible="{Binding IsStatsExpanded}" Orientation="Vertical" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
                                             <Label Text="1. Erä" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,0"/>
 
-                                             <!--Team 1 and Team 2 Players Grid for 1. Kenttä--> 
+                                            <!--Team 1 and Team 2 Players Grid for 1. Kenttä-->
                                             <Grid HorizontalOptions="Center" Padding="5">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="30"/>
@@ -434,7 +172,7 @@
 
                                             <Label Text="2. Erä" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
 
-                                             <!--Team 1 and Team 2 Players Grid for 2. Kenttä--> 
+                                            <!--Team 1 and Team 2 Players Grid for 2. Kenttä-->
                                             <Grid HorizontalOptions="Center" Padding="5">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="30"/>
@@ -456,7 +194,7 @@
 
                                             <Label Text="3. Erä" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
 
-                                             <!--Team 1 and Team 2 Players Grid for 2. Kenttä--> 
+                                            <!--Team 1 and Team 2 Players Grid for 2. Kenttä-->
                                             <Grid HorizontalOptions="Center" Padding="5">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="30"/>
@@ -478,7 +216,7 @@
 
                                             <Label Text="Maalivahdit" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,15"/>
 
-                                             <!--Team 1 and Team 2 Players Grid for 2. Kenttä--> 
+                                            <!--Team 1 and Team 2 Players Grid for 2. Kenttä-->
                                             <Grid HorizontalOptions="Center" Padding="5">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="30"/>
@@ -492,17 +230,15 @@
                                                     <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
 
-                                                 <!--Team 1 Player 1--> 
+                                                <!--Team 1 Player 1-->
                                                 <Label Text="" FontSize="14" Grid.Row="0" Grid.Column="1"/>
 
-                                                 <!--Team 2 Player 1--> 
+                                                <!--Team 2 Player 1-->
                                                 <Label Text="" FontSize="14" Grid.Row="0" Grid.Column="4"/>
 
                                             </Grid>
 
                                         </StackLayout>
-
-
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

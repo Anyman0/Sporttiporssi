@@ -22,9 +22,9 @@ namespace Sporttiporssi.Services
         public LeagueStandingsService(LocalDatabaseService databaseService, HttpClient httpClient)
         {
             _databaseService = databaseService;
-            //_httpClient = httpClient;
-            var unsafeHttpClient = new UnsafeHttpClientHandler();
-            _httpClient = new HttpClient(unsafeHttpClient);
+            _httpClient = httpClient;
+            //var unsafeHttpClient = new UnsafeHttpClientHandler();
+            //_httpClient = new HttpClient(unsafeHttpClient);
         }
         public async Task<ObservableCollection<LeagueStanding>> GetLeagueStandings()
         {

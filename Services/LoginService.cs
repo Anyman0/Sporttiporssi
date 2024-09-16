@@ -22,9 +22,9 @@ namespace Sporttiporssi.Services
         public LoginService(LocalDatabaseService databaseService, HttpClient httpClient)
         {
             this._databaseService = databaseService;
-            var unsafeHttpClient = new UnsafeHttpClientHandler();
-            _httpClient = new HttpClient(unsafeHttpClient);
-            //_httpClient = httpClient;
+            //var unsafeHttpClient = new UnsafeHttpClientHandler();
+            //_httpClient = new HttpClient(unsafeHttpClient);
+            _httpClient = httpClient;
         }
 
         public async Task<HttpStatusCode> RegisterUserAsync(string email, string password)

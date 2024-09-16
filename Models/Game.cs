@@ -44,6 +44,26 @@ namespace Sporttiporssi.Models
         public string LastHomeGames { get; set; }
         public string LastAwayGames { get; set; }
         public DateTime LastUpdated { get; set; }
+        private ObservableCollection<GameGroup> _groupedPlayers;
+        public ObservableCollection<GameGroup> GroupedPlayers
+        {
+            get => _groupedPlayers;
+            set
+            {
+                _groupedPlayers = value;
+                OnPropertyChanged(nameof(GroupedPlayers));
+            }
+        }
+        private ObservableCollection<GameGroup> _awayGroupedPlayers;
+        public ObservableCollection<GameGroup> AwayGroupedPlayers
+        {
+            get => _awayGroupedPlayers;
+            set
+            {
+                _awayGroupedPlayers = value;
+                OnPropertyChanged(nameof(AwayGroupedPlayers));
+            }
+        }
 
         public bool IsRosterExpanded
         {
@@ -57,7 +77,7 @@ namespace Sporttiporssi.Models
                 }
             }
         }
-
+     
         public bool IsStatsExpanded
         {
             get => _isStatsExpanded;
@@ -70,7 +90,7 @@ namespace Sporttiporssi.Models
                 }
             }
         }
-
+        
         private int _homeTeamRank;
         private int _awayTeamRank;
 

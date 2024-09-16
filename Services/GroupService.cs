@@ -21,9 +21,9 @@ namespace Sporttiporssi.Services
         public ObservableCollection<FantasyGroup> Groups { get; set; } = new ObservableCollection<FantasyGroup>();
         public GroupService(HttpClient httpClient)
         {
-            //_httpClient = httpClient;
-            var unsafeHttpClient = new UnsafeHttpClientHandler();
-            _httpClient = new HttpClient(unsafeHttpClient);
+            _httpClient = httpClient;
+            //var unsafeHttpClient = new UnsafeHttpClientHandler();
+            //_httpClient = new HttpClient(unsafeHttpClient);
         }
 
         public async Task<List<FantasyGroup>> AllFantasyGroupsBySerie()

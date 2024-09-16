@@ -19,8 +19,8 @@ namespace Sporttiporssi.Services
         {
             _database = new SQLiteAsyncConnection(dbPath);
             //_database.CreateTableAsync<LeagueStanding>().Wait();
-            _database.CreateTableAsync<Game>().Wait();
-            _database.CreateTableAsync<Player>().Wait();
+            //_database.CreateTableAsync<Game>().Wait();
+            //_database.CreateTableAsync<Player>().Wait();
         }
 
         // **** FETCHES **** //

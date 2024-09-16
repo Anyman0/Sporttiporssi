@@ -22,7 +22,7 @@ public partial class CreateTeamPage : ContentPage
         var teamRegisterDto = new TeamRegisterDto
 		{
 			TeamName = teamName,
-			TradesPerPhase = 20,
+			TradesPerPhase = 30,
             FundsLeft = 2000000
         };
 

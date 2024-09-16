@@ -27,9 +27,9 @@ namespace Sporttiporssi.Services
         public LeaguePlayersService(LocalDatabaseService databaseService, HttpClient httpClient)
         {
             _databaseService = databaseService;
-            //_httpClient = httpClient;
-            var unsafeHttpClient = new UnsafeHttpClientHandler();
-            _httpClient = new HttpClient(unsafeHttpClient);
+            _httpClient = httpClient;
+            //var unsafeHttpClient = new UnsafeHttpClientHandler();
+            //_httpClient = new HttpClient(unsafeHttpClient);
         }
 
         public async Task<ObservableCollection<Player>> GetPlayersAsync()
@@ -51,37 +51,28 @@ namespace Sporttiporssi.Services
                 Debug.WriteLine($"Error fetching players: {ex.Message}");
                 return new ObservableCollection<Player>();
             }            
-        }       
-        public async Task<List<Player>> GetAllPlayersAsync()
+        }  
+        
+        public async Task<ObservableCollection<Player>> GetPlayersByRole(string[] roles)
         {
-            var localPlayerList = await _databaseService.GetAllPlayersAsync(); 
-            // Update all players every 2 days
-            var needToUpdate = localPlayerList.Any(s => s.LastUpdated < DateTime.UtcNow.AddDays(-2));
-            if (localPlayerList.Count == 0 || needToUpdate)
+            _httpClient.DefaultRequestHeaders.Clear();
+            string authToken = await SecureStorage.GetAsync("auth_token");
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+            var rolesParam = string.Join("&roles=", roles);
+            try
             {
-                await LoadPlayersAsync();
-                if (Players != null)
-                {
-                    foreach (var player in Players)
-                    {
-                        var existingPlayer = await _databaseService.GetPlayerById(player.PlayerId);
-                        if (existingPlayer != null)
-                        {
-                            player.LastUpdated = DateTime.UtcNow;
-                            await _databaseService.UpdatePlayerAsync(player);                           
-                        }
-                        else
-                        {
-                            await _databaseService.SavePlayerAsync(player);
-                        }                      
-                    }
-
-                    return Players.ToList();
-                }
+                var response = await _httpClient.GetAsync($"{ApiConfig.ApiBaseAddress}player/GetPlayersByRole?roles={rolesParam}");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ObservableCollection<Player>>(json);
             }
-            return localPlayerList;
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error fetching players: {ex.Message}");
+                return new ObservableCollection<Player>();
+            }
         }
-
         public async Task<ObservableCollection<Player>> GetPlayersByFantasyTeamName(string teamName)
         {
             string authToken = await SecureStorage.GetAsync("auth_token");

@@ -18,11 +18,11 @@ namespace Sporttiporssi.Services
         private readonly HttpClient _httpClient;
         public ObservableCollection<FantasyTeam> Teams = new ObservableCollection<FantasyTeam>();
 
-        public TeamService(HttpClient httpclient)
+        public TeamService(HttpClient httpClient)
         {
-            //_httpClient = httpClient;
-            var unsafeHttpClient = new UnsafeHttpClientHandler();
-            _httpClient = new HttpClient(unsafeHttpClient);
+            _httpClient = httpClient;
+            //var unsafeHttpClient = new UnsafeHttpClientHandler();
+            //_httpClient = new HttpClient(unsafeHttpClient);
         }
 
         public async Task<List<FantasyTeam>> AllFantasyTeamsBySerie()
@@ -89,9 +89,9 @@ namespace Sporttiporssi.Services
             }
         }
 
-        public async Task<bool> CanTrade()
+        public async Task<bool> CanTrade(string serie)
         {
-            string authToken = await SecureStorage.GetAsync("auth_token");
+            string authToken = await SecureStorage.GetAsync("auth_token");           
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
